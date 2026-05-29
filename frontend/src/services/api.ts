@@ -47,13 +47,14 @@ export interface URLScanResponse {
   flags: string[];
 }
 
-const API_BASE = '/';
+const API_BASE =
+  import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export async function scanAPK(file: File): Promise<APKScanResponse> {
   const formData = new FormData();
   formData.append('file', file);
 
-  const res = await fetch(`${API_BASE}scan-apk`, {
+  const res = await fetch(`${API_BASE}/scan-apk`, {
     method: 'POST',
     body: formData,
   });
@@ -67,7 +68,7 @@ export async function scanAPK(file: File): Promise<APKScanResponse> {
 }
 
 export async function scanURL(url: string): Promise<URLScanResponse> {
-  const res = await fetch(`${API_BASE}scan-url`, {
+  const res = await fetch(`${API_BASE}/scan-url`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url }),
@@ -83,7 +84,7 @@ export async function scanURL(url: string): Promise<URLScanResponse> {
 
 export async function checkHealth(): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE}health`);
+    const res = await fetch(`${API_BASE}/health`);
     return res.ok;
   } catch {
     return false;
