@@ -53,7 +53,6 @@ dist-ssr
 
 # Reports / outputs
 *.pdf
-*.json
 
 # Temporary folders
 files (1)/
